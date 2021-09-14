@@ -8,6 +8,9 @@ import { useHistory } from 'react-router-dom';
 import ChatSideBanner from '../../components/ChatSideBanner/ChatSideBanner';
 import { useEffect } from 'react';
 
+//Temp Import of ProfilePhoto
+import ProfilePhoto from '../../components/ProfileSettings/ProfilePhoto/ProfilePhoto';
+
 export default function Dashboard(): JSX.Element {
   const classes = useStyles();
 
@@ -29,6 +32,8 @@ export default function Dashboard(): JSX.Element {
 
   return (
     <Grid container component="main" className={`${classes.root} ${classes.dashboard}`}>
+      {/* Temp Render */}
+      <ProfilePhoto />
       <CssBaseline />
       <Grid item className={classes.drawerWrapper}>
         <ChatSideBanner loggedInUser={loggedInUser} />
