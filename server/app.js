@@ -12,6 +12,10 @@ const logger = require("morgan");
 const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
 
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
+const { uploadPhoto } = require('./S3');
+
 const { json, urlencoded } = express;
 
 connectDB();
@@ -55,6 +59,13 @@ if (process.env.NODE_ENV === "production") {
     res.send("API is running");
   });
 }
+
+// POST request for uploading to Express server then pushing to S3 Bucket
+app.post('/profilePhotos', upload.single('profilePhoto'), async (req, res) => {
+  const file = req.file;
+  const result = await uploadPhoto(file);
+  res.send('upload complete!')
+})
 
 app.use(notFound);
 app.use(errorHandler);
