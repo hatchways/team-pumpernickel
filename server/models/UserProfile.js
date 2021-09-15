@@ -33,5 +33,5 @@ const userProfile = new mongoose.Schema(
   { timestamps: true }
 )
 
-const UserProfile = mongoose.model('UsersProfile', userProfile)
+const UserProfile = mongoose.model('profile', userProfile)
 module.exports = UserProfile
