@@ -14,6 +14,10 @@ const userRouter = require("./routes/user");
 
 const { json, urlencoded } = express;
 
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
+const { uploadPhoto } = require('./S3');
+
 connectDB();
 const app = express();
 const server = http.createServer(app);
@@ -55,6 +59,13 @@ if (process.env.NODE_ENV === "production") {
     res.send("API is running");
   });
 }
+
+// POST request for uploading to Express server then pushing to S3 Bucket
+app.post('/profilePhotos', upload.single('profilePhoto'), async (req, res) => {
+  const file = req.file;
+  const result = await uploadPhoto(file);
+  res.send('upload complete!')
+})
 
 app.use(notFound);
 app.use(errorHandler);
