@@ -27,3 +27,16 @@ function uploadPhoto(file) {
 }
 
 exports.uploadPhoto = uploadPhoto;
+
+
+// Function to handle downloading from S3 bucket
+function downloadPhoto(fileKey) {
+  const downloadParams = {
+    Key: fileKey,
+    Bucket: bucketName
+  };
+
+  return s3.getObject(downloadParams).createReadStream();
+}
+
+exports.downloadPhoto = downloadPhoto;

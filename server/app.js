@@ -16,7 +16,7 @@ const { json, urlencoded } = express;
 
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
-const { uploadPhoto } = require('./S3');
+const { uploadPhoto, downloadPhoto } = require('./S3');
 
 connectDB();
 const app = express();
@@ -60,11 +60,21 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
+// GET request from client > server > S3 bucket
+app.get('/profilePhotos/:key', (req, res) => {
+  console.log(res);
+  const key = req.params.key;
+  console.log(key);
+  const downloadFromS3 = downloadPhoto(key);
+
+  downloadFromS3.pipe(res);
+})
+
 // POST request for uploading to Express server then pushing to S3 Bucket
 app.post('/profilePhotos', upload.single('profilePhoto'), async (req, res) => {
   const file = req.file;
   const result = await uploadPhoto(file);
-  res.send('upload complete!')
+  res.send({photoPath: `/profilePhotos/${result.Key}`})
 })
 
 app.use(notFound);
