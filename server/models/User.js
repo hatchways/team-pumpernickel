@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  profile: { type: Schema.Types.ObjectId, ref: UserProfile }
+  profile: { type: Schema.Types.Object, ref: UserProfile }
 })
 
 userSchema.methods.matchPassword = async function (enteredPassword) {
