@@ -9,25 +9,29 @@ const noReqString = {
   required: false
 }
 
+const date = {
+  type: Date,
+  default: null
+}
+
 const userProfile = new mongoose.Schema(
   {
-    firstName: reqString,
+    firstName: reqstring,
     lastName: reqString,
-    userImage: reqString,
-    nickName: noReqString,
-    dateOfBirth: { type: Date, default: Date.now },
-    education: noReqString,
-    occupation: noReqString,
-    hobbies: noReqString,
-    postCode: noReqString,
-    address: noReqString,
-    city: noReqString,
-    country: noReqString,
-    online: {
-      type: 'boolean',
-      required: true
-    },
-    about: reqString
+    gender: { type: boolean, required: true },
+    birthDay: date,
+    email: reqString,
+    phoneNumber: reqString,
+    address: reqString,
+    description: noReqString,
+    available: { type: 'boolean', required: true },
+    availableDays: [
+      {
+        availableDay: date,
+        from: noReqString,
+        to: noReqString
+      }
+    ]
   },
   { timestamps: true }
 )
