@@ -1,16 +1,15 @@
 const mongoose = require("mongoose");
-const { ObjectId } = mongoose.Schema.Types;
+const Schema = mongoose.Schema
+const ObjectId = Schema.Types.ObjectId
 
 const requestSchema = new mongoose.Schema({
   ownerId: {
     type: ObjectId,
     required: true,
-    ref: 'user',
   },
   sitterId: {
     type: ObjectId,
     required: true,
-    ref: 'user',
   },
   startDate: {
     type: Date,
@@ -18,17 +17,20 @@ const requestSchema = new mongoose.Schema({
   },
   endDate: {
     type: Date,
-    required: true,
+    required: true
   },
-  status: {
-    type: String,
-    enum: ['pending', 'accepted', 'declined'],
-    default: 'pending',
-  }, 
+  accepted: {
+    type: Boolean,
+    default: false,
+  },
+  declined: {
+    type: Boolean,
+    default: false,
+  },  
   paid: {
     type: Boolean,
     default: false,
   },
 });
 
-module.exports = mongoose.model("Request", requestSchema);
+module.exports = Request = mongoose.model("Request", requestSchema);
