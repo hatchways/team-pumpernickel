@@ -14,14 +14,11 @@ const userProfile = new mongoose.Schema(
       type: 'string',
       required: false
     },
-    birthDay: {
+    birthDate: {
       type: Date,
       default: null
     },
-    email: {
-      type: 'string',
-      required: false
-    },
+
     phoneNumber: {
       type: 'string',
       required: false
@@ -43,7 +40,7 @@ const userProfile = new mongoose.Schema(
       required: false
     },
     available: { type: 'boolean', required: true },
-    availableDays: {
+    availabityPeriod: {
       startDate: {
         type: Date,
         default: null
@@ -52,6 +49,10 @@ const userProfile = new mongoose.Schema(
         type: Date,
         default: null
       }
+    },
+    availabilityDays: {
+      type: 'string',
+      enum: ['Mon', 'Tue', 'Wed', 'Tue', 'Fri', 'Sat', 'Sun']
     }
   },
   { timestamps: true }
