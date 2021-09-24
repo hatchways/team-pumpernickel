@@ -2,10 +2,35 @@ const User = require('../models/User')
 const UserProfile = require('../models/UserProfile')
 const asyncHandler = require('express-async-handler')
 
-
-exports.createUserProfile = asyncHandler(async (req, res) => {
+exports.profile = asyncHandler(async (req, res) => {
   try {
-    const profile = await new UserProfile(req.body)
+    const {
+      firstName,
+      lastName,
+      gender,
+      birthDate,
+      phoneNumber,
+      address,
+      city,
+      country,
+      description,
+      available,
+      availabityPeriod
+    } = req.body
+
+    const profile = await new UserProfile({
+      firstName,
+      lastName,
+      gender,
+      birthDate,
+      phoneNumber,
+      address,
+      city,
+      country,
+      description,
+      available,
+      availabityPeriod
+    })
     const userProfile = await User.updateOne(
       { _id: req.params.userId },
       {
@@ -14,25 +39,9 @@ exports.createUserProfile = asyncHandler(async (req, res) => {
         }
       }
     )
-   return  res.json(userProfile)
+    return res.status(201).json(userProfile)
   } catch (err) {
-   return res.send(err)
-  }  
-})
-
-exports.updateProfile = asyncHandler(async (req, res) => {
-  try {
-    const updateProfile = await User.updateOne(
-      { _id: req.params.userId },
-      {
-        $set: {
-          profile: { ...req.body }
-        }   
-      }
-    )
-   return res.json(updateProfile)
-  } catch (err) {
-   return res.send(err)
+    return res.status(400).send(err)
   }
 })
 
@@ -41,17 +50,17 @@ exports.getProfile = asyncHandler(async (req, res) => {
     const userProfile = await User.findById({ _id: req.params.userId }).select(
       'profile'
     )
-   return res.json(userProfile)
+    return res.status(200).json(userProfile)
   } catch (err) {
-   return res.send(err)
+    return res.status(404).send(err)
   }
 })
 
 exports.getAllProfiles = asyncHandler(async (req, res) => {
   try {
     const allProfiles = await User.find().select('profile')
-  return  res.json(allProfiles)
+    return res.status(200).json(allProfiles)
   } catch (err) {
-  return  res.send(err) 
-  } 
+    return res.status(404).send(err)
+  }
 })
