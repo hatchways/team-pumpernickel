@@ -6,7 +6,7 @@ const {
   getAllProfiles
 } = require('../controllers/userProfileController')
 
-router.patch('/profile/:userId', profile)
+router.patch('/:userId', profile)
 router.get('/get_profile/:userId', getProfile)
 router.get('/get_all_profiles/', getAllProfiles)
 
