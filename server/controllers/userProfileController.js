@@ -18,7 +18,7 @@ exports.profile = asyncHandler(async (req, res) => {
       availabityPeriod
     } = req.body
 
-    const profile = await new UserProfile({
+    const profile = new UserProfile({
       firstName,
       lastName,
       gender,
@@ -31,15 +31,20 @@ exports.profile = asyncHandler(async (req, res) => {
       available,
       availabityPeriod
     })
-    const userProfile = await User.updateOne(
-      { _id: req.params.userId },
-      {
-        $set: {
-          profile
+
+    if (req.params.userId) {
+      const userProfile = await User.updateOne(
+        { _id: req.params.userId },
+        {
+          $set: {
+            profile
+          }
         }
-      }
-    )
-    return res.status(201).json(userProfile)
+      )
+      return res.status(201).json(userProfile)
+    } else {
+      return res.status(400).json({ err: 'user id undefined' })
+    }
   } catch (err) {
     return res.status(400).send(err)
   }
