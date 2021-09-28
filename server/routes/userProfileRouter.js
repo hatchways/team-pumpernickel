@@ -8,6 +8,6 @@ const {
 
 router.patch('/:userId', profile)
 router.get('/get-profile/:userId', getProfile)
-router.get('/get-all_profiles/', getAllProfiles)
+router.get('/get-all-profiles/', getAllProfiles)
 
 module.exports = router
