@@ -38,7 +38,7 @@ export default function NextBookings({ nextBooking, updateStatusState }: Props):
                   {/* TEMP img tags */}
                   {/* <Avatar alt="Remy Sharp" src="../../Images/68f55f7799df6c8078a874cfe0a61a5e6e9e1687.png" /> */}
                   <Box className={pageClasses.tempImg}></Box>
-                  <Box className={pageClasses.nextBookNameHr}>{nextBooking?.sitterId}</div>
+                  <Box className={pageClasses.nextBookNameHr}>{nextBooking?.sitterId}</Box>
                 </Typography>
               </Grid>
             </Grid>
