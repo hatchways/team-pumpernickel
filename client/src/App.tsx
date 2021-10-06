@@ -7,8 +7,8 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
-
 import './App.css';
+import Bookings from './pages/Bookings/Bookings';
 
 function App(): JSX.Element {
   return (
@@ -23,6 +23,7 @@ function App(): JSX.Element {
                 <Route exact path="/dashboard">
                   <Dashboard />
                 </Route>
+                <Route exact path="/my-sitter" component={Bookings} />
                 <Route path="*">
                   <Redirect to="/login" />
                 </Route>
